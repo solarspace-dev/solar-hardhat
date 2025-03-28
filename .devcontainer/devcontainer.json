@@ -1,7 +1,7 @@
 {
   // For format details, see https://aka.ms/devcontainer.json.
   "name": "TRG's DevContainer",
-
+  
   // You can use image or directly use a Dockerfile or Docker Compose file.
   // More info: https://containers.dev/guide/dockerfile
   // https://github.com/devcontainers/images/tree/main/src/base-alpine
@@ -9,10 +9,10 @@
   "build": {
     "dockerfile": "./Dockerfile"
   },
-
+  
   // In this case this is redundant, because we are using the default user.
   //"remoteUser": "vscode",
-
+  
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     // "ghcr.io/devcontainers/features/docker-in-docker:2": {
@@ -20,15 +20,15 @@
     //   "moby": true
     // }
   },
-
+  
   // Writable mounts in case you want to set --read-only above.
   "mounts": [
-    ],
-
-
-// Configure tool-specific properties.
+  ],
+  
+  
+  // Configure tool-specific properties.
   "customizations": {
-  // Configure properties specific to VS Code.
+    // Configure properties specific to VS Code.
     "vscode": {
       "settings": {
         // Killswitch for automated tasks
@@ -57,8 +57,8 @@
       ]
     }
   }
-// Use 'postCreateCommand' to run commands after the container is created.
-// "postCreateCommand": ""
-// Use 'postAttachCommand' to attach a command after the container is opened.
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": ""
+  // Use 'postAttachCommand' to attach a command after the container is opened.
   // "postAttachCommand": "zsh"
 }
