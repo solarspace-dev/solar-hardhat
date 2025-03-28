@@ -36,9 +36,6 @@ ENV LOCAL_BIN=${HOME}/.local/bin
 ENV PNPM_HOME=${HOME}/.local/share/pnpm
 ENV PATH=${PATH}:${USR_LOCAL_BIN}:${LOCAL_BIN}:${PNPM_HOME}
 
-# Fix permission issues for ZSH auto completion
-RUN chmod -R go-w ${HOME}/.oh-my-zsh
-
 # Install uv
 RUN python3 -m pip install --no-cache-dir --upgrade uv
 
@@ -70,9 +67,6 @@ RUN git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch ${ASDF_VE
 
 ## Install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
-
-# Fix permission issues for ZSH auto completion
-RUN chmod -R go-w ${HOME}/.oh-my-zsh
 
 USER root
 ## Install nvm, yarn, npm, pnpm
@@ -130,10 +124,6 @@ RUN mkdir -p /usr/share/zsh/site-functions && \
 
 ## Clean
 RUN apt-get autoremove -y && apt-get clean -y
-
-## Configure MOTD
-COPY --link --chown=root:root motd /etc/motd
-RUN echo '\ncat /etc/motd\n' >> ~/.zshrc
 
 ## back to user!
 USER vscode
