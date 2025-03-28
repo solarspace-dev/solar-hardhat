@@ -53,7 +53,8 @@
         "NomicFoundation.hardhat-solidity",
         "Olympixai.olympix",
         "trailofbits.contract-explorer",
-        "tintinweb.vscode-decompiler" // dependency for panoramix
+        "tintinweb.vscode-decompiler", // dependency for panoramix
+        "runtimeverification.simbolik"
       ]
     }
   }
