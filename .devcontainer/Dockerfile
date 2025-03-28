@@ -84,17 +84,17 @@ RUN pnpm install hardhat -g
 
 # Python installations
 # Install slither, crytic-compile, solc, vyper, mythx, panoramix, slider-lsp (needed for contract explorer), napalm-toolbox. napalm-core has to be installed manually.
-RUN uv tool install slither-analyzer && \ 
-    uv tool install crytic-compile && \ 
-    uv tool install vyper && \ 
-    uv tool install panoramix-decompiler && \ 
-    uv tool install slither-lsp && \ 
-    uv tool install mythril && \ 
-    uv tool install napalm-toolbox && \ 
-    uv tool install semgrep && \ 
-    uv tool install slitherin && \ 
-    uv tool install solc-select && \
-    solc-select install 0.4.26 0.5.17 0.6.12 0.7.6 0.8.10 latest && solc-select use latest
+RUN uv tool install slither-analyzer
+RUN uv tool install crytic-compile
+RUN uv tool install vyper
+RUN uv tool install panoramix-decompiler
+RUN uv tool install slither-lsp
+RUN uv tool install mythril
+RUN uv tool install napalm-toolbox
+RUN uv tool install semgrep
+RUN uv tool install slitherin
+RUN uv tool install solc-select
+RUN solc-select install 0.4.26 0.5.17 0.6.12 0.7.6 0.8.10 latest && solc-select use latest
 
 # Fetch and install setups
 ## ityfuzz
