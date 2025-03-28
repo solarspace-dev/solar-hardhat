@@ -71,6 +71,9 @@ RUN git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch ${ASDF_VE
 ## Install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
 
+# Fix permission issues for ZSH auto completion
+RUN chmod -R go-w ${HOME}/.oh-my-zsh
+
 USER root
 ## Install nvm, yarn, npm, pnpm
 RUN curl -o- https://raw.githubusercontent.com/devcontainers/features/main/src/node/install.sh | bash
