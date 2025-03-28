@@ -29,10 +29,6 @@ RUN echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER vscode
 WORKDIR /home/vscode
 
-# Set HOME and create quests folder
-ENV HOME=/home/vscode
-RUN mkdir -p ${HOME}/quests && chown vscode:vscode ${HOME}/quests
-
 # Set neded paths (for python, pix, pnpm)
 ENV USR_LOCAL_BIN=/usr/local/bin
 ENV LOCAL_BIN=${HOME}/.local/bin
@@ -134,10 +130,6 @@ RUN rm -rf medusa/
 # Copy prebuilt Echidna binary
 COPY --chown=vscode:vscode --from=echidna /usr/local/bin/echidna ${HOME}/.local/bin/echidna
 RUN chmod 755 ${HOME}/.local/bin/echidna
-
-# Clone useful repositories inside quests
-WORKDIR ${HOME}/quests
-RUN git clone --depth 1 https://github.com/crytic/building-secure-contracts.git
 
 # Back to home in case we want to do something later.
 WORKDIR ${HOME}

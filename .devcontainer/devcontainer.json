@@ -20,12 +20,6 @@
     //   "moby": true
     // }
   },
-
-  // Mount isolation. If you need to extract something from within the container, you can use docker cp, but use it at your own risk. If you want to develop your devcontainer, you should comment this things, otherwise your changes inside the live container won't persist.
-  // Disables mounting the host workspace into the container.
-  "workspaceMount": "type=tmpfs,destination=/workspace",
-  // Sets a workspace path entirely isolated within the container
-  "workspaceFolder": "/home/vscode/quests",
   "runArgs": [
     // Read only filesystem except for explicitly writable volumes (check mounts)
     // For a dev environment this is more a hussle than a feature.
