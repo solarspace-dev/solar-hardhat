@@ -36,6 +36,16 @@ ENV LOCAL_BIN=${HOME}/.local/bin
 ENV PNPM_HOME=${HOME}/.local/share/pnpm
 ENV PATH=${PATH}:${USR_LOCAL_BIN}:${LOCAL_BIN}:${PNPM_HOME}
 
+
+# Set the default shell to zsh
+ENV SHELL=/usr/bin/zsh
+
+# Running everything under zsh
+SHELL ["/usr/bin/zsh", "-ic"]
+
+# Fix permission issues for zsh auto completions
+RUN compaudit | xargs chmod g-w,o-w
+
 # Install uv
 RUN python3 -m pip install --no-cache-dir --upgrade uv
 
@@ -47,12 +57,6 @@ RUN python3 -m pip install --no-cache-dir --upgrade uv
 
 # Set asdf manager version
 ENV ASDF_VERSION=v0.15.0
-
-# Set the default shell to zsh
-ENV SHELL=/usr/bin/zsh
-
-# Running everything under zsh
-SHELL ["/usr/bin/zsh", "-ic"]
 
 
 # Install golang's latest version through asdf
