@@ -7,7 +7,7 @@
 FROM --platform=linux/amd64 ghcr.io/crytic/echidna/echidna:latest AS echidna
 
 # Grab at least python 3.12
-FROM python:3.12-slim as python-base
+FROM python:3.12-slim AS python-base
 
 # Base debian build (latest).
 FROM mcr.microsoft.com/vscode/devcontainers/base:debian
