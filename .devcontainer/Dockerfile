@@ -28,6 +28,7 @@ RUN echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Switch to vscode (drop privs)
 USER vscode
 WORKDIR /home/vscode
+ENV HOME=/home/vscode
 
 # Set neded paths (for python, pix, pnpm)
 ENV USR_LOCAL_BIN=/usr/local/bin
