@@ -117,9 +117,9 @@ RUN curl -fsSL https://astral.sh/uv/install.sh | bash && \
 ## Heimdall
 ### Replace 'bifrost' call for 'bifrost -B' so it downloads de binary instead of compiling it.
 ### Right now this debian uses a glibc version lower than heimdall needs.
-RUN curl -fsSL https://get.heimdall.rs | zsh && \
-    . ${HOME}/.cargo/env && \
-    ${HOME}/.bifrost/bin/bifrost
+# RUN curl -fsSL https://get.heimdall.rs | zsh && \
+#     . ${HOME}/.cargo/env && \
+#     ${HOME}/.bifrost/bin/bifrost
 
 # Git clone, compile kind of installations
 ## Install Medusa
