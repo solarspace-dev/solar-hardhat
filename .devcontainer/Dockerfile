@@ -83,18 +83,16 @@ USER vscode
 RUN pnpm install hardhat -g
 
 # Python installations
-# Install slither, crytic-compile, solc, vyper, mythx, panoramix, slider-lsp (needed for contract explorer), napalm-toolbox. napalm-core has to be installed manually.
-RUN uv tool install slither-analyzer
-RUN uv tool install crytic-compile
-RUN uv tool install vyper
-RUN uv tool install panoramix-decompiler
-RUN uv tool install slither-lsp
-RUN uv tool install mythril
-RUN uv tool install napalm-toolbox
-RUN uv tool install semgrep
-RUN uv tool install slitherin
-RUN uv tool install solc-select
-RUN solc-select install 0.4.26 0.5.17 0.6.12 0.7.6 0.8.10 latest && solc-select use latest
+# Install slither, crytic-compile, solc, vyper, panoramix, slider-lsp (needed for contract explorer).
+RUN uv tool install slither-analyzer && \ 
+    uv tool install crytic-compile && \ 
+    uv tool install vyper && \ 
+    uv tool install panoramix-decompiler && \ 
+    uv tool install slither-lsp && \ 
+    uv tool install semgrep && \ 
+    uv tool install slitherin && \ 
+    uv tool install solc-select && \
+    solc-select install 0.4.26 0.5.17 0.6.12 0.7.6 0.8.10 latest && solc-select use latest
 
 # Fetch and install setups
 ## ityfuzz
@@ -114,26 +112,6 @@ RUN cyfrinup
 RUN curl -fsSL https://astral.sh/uv/install.sh | bash && \
     uv tool install halmos
 
-## Heimdall
-### Replace 'bifrost' call for 'bifrost -B' so it downloads de binary instead of compiling it.
-### Right now this debian uses a glibc version lower than heimdall needs.
-# RUN curl -fsSL https://get.heimdall.rs | zsh && \
-#     . ${HOME}/.cargo/env && \
-#     ${HOME}/.bifrost/bin/bifrost
-
-# Git clone, compile kind of installations
-## Install Medusa
-### Set working directory for Medusa operations
-WORKDIR ${HOME}/medusa
-RUN git clone https://github.com/crytic/medusa ${HOME}/medusa && \
-    export LATEST_TAG="$(git describe --tags | sed 's/-[0-9]\+-g\w\+$//')" && \
-    git checkout "$LATEST_TAG" && \
-    go build -trimpath -o=${HOME}/.local/bin/medusa -ldflags="-s -w" && \
-    chmod 755 ${HOME}/.local/bin/medusa
-    #### Return to the home directory and clean up
-WORKDIR ${HOME}
-RUN rm -rf medusa/
-
 # Copy prebuilt Echidna binary
 COPY --chown=vscode:vscode --from=echidna /usr/local/bin/echidna ${HOME}/.local/bin/echidna
 RUN chmod 755 ${HOME}/.local/bin/echidna
@@ -144,9 +122,8 @@ WORKDIR ${HOME}
 # Do some things as root
 USER root
 
-## Add completions for medusa, anvil, cast, forge.
+## Add completions for anvil, cast, forge.
 RUN mkdir -p /usr/share/zsh/site-functions && \
-    medusa completion zsh > /usr/share/zsh/site-functions/_medusa && \
     for tool in anvil cast forge; do \
         "$tool" completions zsh > /usr/share/zsh/site-functions/_$tool; \
     done
@@ -163,4 +140,4 @@ USER vscode
 
 # Example HEALTHCHECK, we don't need once since we're not using services. If you add services in the future, you would need to add "something" like this:
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 CMD \
-  zsh -c 'command -v echidna && command -v medusa && command -v slither && command -v solc && echo "OK" || exit 1'
+  zsh -c 'command -v echidna && command -v slither && command -v solc && echo "OK" || exit 1'
