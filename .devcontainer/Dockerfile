@@ -89,13 +89,13 @@ RUN chmod 755 ${HOME}/.local/bin/echidna
 # Back to home in case we want to do something later.
 WORKDIR ${HOME}
 
+USER root
+
 ## Add completions for anvil, cast, forge.
 RUN mkdir -p ${HOME}/.local/share/bash-completion/completions && \
     forge completions bash > ${HOME}/.local/share/bash-completion/completions/forge && \
     cast completions bash > ${HOME}/.local/share/bash-completion/completions/cast && \
     anvil completions bash > ${HOME}/.local/share/bash-completion/completions/anvil
-
-USER root
 
 ## Clean
 RUN apt-get autoremove -y && apt-get clean -y
