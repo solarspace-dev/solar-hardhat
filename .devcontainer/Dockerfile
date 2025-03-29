@@ -81,7 +81,6 @@ RUN pnpm install hardhat -g
 RUN uv tool install slither-analyzer && \ 
     uv tool install crytic-compile && \ 
     uv tool install vyper && \ 
-    uv tool install panoramix-decompiler && \ 
     uv tool install slither-lsp && \ 
     uv tool install semgrep && \ 
     uv tool install slitherin && \ 

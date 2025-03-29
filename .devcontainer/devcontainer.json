@@ -43,17 +43,10 @@
         "terminal.integrated.profiles.linux": { "zsh": { "path": "/usr/bin/zsh" } }
       },
       "extensions": [
-        // check out https://marketplace.visualstudio.com/items?itemName=tintinweb.ethereum-security-bundle for more information
-        "tintinweb.ethereum-security-bundle", // includes what is listed above ^
-        "tintinweb.vscode-ethover",
+        "juanblanco.solidity",
         "trailofbits.weaudit",
-        "tintinweb.vscode-inline-bookmarks", 
-        "tintinweb.vscode-solidity-language",
-        "tintinweb.graphviz-interactive-preview",
-        "NomicFoundation.hardhat-solidity",
-        "Olympixai.olympix",
         "trailofbits.contract-explorer",
-        "tintinweb.vscode-decompiler", // dependency for panoramix
+        "NomicFoundation.hardhat-solidity",
         "runtimeverification.simbolik"
       ]
     }
