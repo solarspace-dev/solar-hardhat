@@ -40,7 +40,7 @@ ENV PATH=${PATH}:${USR_LOCAL_BIN}:${LOCAL_BIN}:${PNPM_HOME}
 RUN python3 -m pip install --no-cache-dir --upgrade uv
 
 ENV SHELL=/usr/bin/bash
-SHELL ["/usr/bin/bash", "-c"]
+SHELL ["/usr/bin/bash", "-ic"]
 
 ## Install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
