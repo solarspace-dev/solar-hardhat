@@ -19,7 +19,7 @@ COPY --from=python-base /usr/local /usr/local
 
 # Super basic stuff to get everything started
 RUN apt-get update -y && apt-get install -y \
-    zsh python3-dev libpython3-dev build-essential vim curl git sudo pkg-config \
+    python3-dev libpython3-dev build-essential vim curl git sudo pkg-config \
     --no-install-recommends
 
 # The base container usually has a “vscode” user. If not, create one here.
@@ -39,31 +39,8 @@ ENV PATH=${PATH}:${USR_LOCAL_BIN}:${LOCAL_BIN}:${PNPM_HOME}
 # Install uv
 RUN python3 -m pip install --no-cache-dir --upgrade uv
 
-# # Install pipx
-# RUN python3 -m pip install --no-cache-dir --upgrade pipx
-
-# # Make sure pipx's paths are set
-# RUN pipx ensurepath
-
-# Set asdf manager version
-ENV ASDF_VERSION=v0.15.0
-
-# Set the default shell to zsh
-ENV SHELL=/usr/bin/zsh
-
-# Running everything under zsh
-SHELL ["/usr/bin/zsh", "-ic"]
-
-
-# Install golang's latest version through asdf
-RUN git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch ${ASDF_VERSION}  && \
-    echo '. $HOME/.asdf/asdf.sh' >> $HOME/.zshrc && \
-    echo 'fpath=(${ASDF_DIR}/completions $fpath)' >> $HOME/.zshrc && \
-    echo 'autoload -Uz compinit && compinit' >> $HOME/.zshrc && \
-    . $HOME/.asdf/asdf.sh && \
-    asdf plugin add golang && \
-    asdf install golang latest && \
-    asdf global golang latest
+ENV SHELL=/usr/bin/bash
+SHELL ["/usr/bin/bash", "-ic"]
 
 ## Install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
@@ -89,15 +66,15 @@ RUN uv tool install slither-analyzer && \
 
 # Fetch and install setups
 ## ityfuzz
-RUN curl -fsSL https://ity.fuzz.land/ | zsh
+RUN curl -fsSL https://ity.fuzz.land/ | bash
 RUN ityfuzzup
 
 ## Foundry framework
-RUN curl -fsSL https://foundry.paradigm.xyz | zsh
+RUN curl -fsSL https://foundry.paradigm.xyz | bash
 RUN foundryup
 
 ## Aderyn
-RUN curl -fsSL https://raw.githubusercontent.com/Cyfrin/up/main/install | zsh
+RUN curl -fsSL https://raw.githubusercontent.com/Cyfrin/up/main/install | bash
 RUN cyfrinup
 
 ## Halmos
@@ -112,14 +89,13 @@ RUN chmod 755 ${HOME}/.local/bin/echidna
 # Back to home in case we want to do something later.
 WORKDIR ${HOME}
 
-# Do some things as root
-USER root
-
 ## Add completions for anvil, cast, forge.
-RUN mkdir -p /usr/share/zsh/site-functions && \
-    for tool in anvil cast forge; do \
-        "$tool" completions zsh > /usr/share/zsh/site-functions/_$tool; \
-    done
+RUN mkdir -p ${HOME}/.local/share/bash-completion/completions && \
+    forge completions bash > ${HOME}/.local/share/bash-completion/completions/forge && \
+    cast completions bash > ${HOME}/.local/share/bash-completion/completions/cast && \
+    anvil completions bash > ${HOME}/.local/share/bash-completion/completions/anvil
+
+USER root
 
 ## Clean
 RUN apt-get autoremove -y && apt-get clean -y
@@ -129,4 +105,4 @@ USER vscode
 
 # Example HEALTHCHECK, we don't need once since we're not using services. If you add services in the future, you would need to add "something" like this:
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 CMD \
-  zsh -c 'command -v echidna && command -v slither && command -v solc && echo "OK" || exit 1'
+  bash -c 'command -v echidna && command -v slither && command -v solc && echo "OK" || exit 1'

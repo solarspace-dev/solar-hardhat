@@ -1,6 +1,6 @@
 {
   // For format details, see https://aka.ms/devcontainer.json.
-  "name": "TRG's DevContainer",
+  "name": "solar-foundry",
   
   // You can use image or directly use a Dockerfile or Docker Compose file.
   // More info: https://containers.dev/guide/dockerfile
@@ -9,16 +9,9 @@
   "build": {
     "dockerfile": "./Dockerfile"
   },
-  
-  // In this case this is redundant, because we are using the default user.
-  //"remoteUser": "vscode",
-  
+    
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    // "ghcr.io/devcontainers/features/docker-in-docker:2": {
-    //   "version": "latest",
-    //   "moby": true
-    // }
   },
   
   // Writable mounts in case you want to set --read-only above.
@@ -37,10 +30,7 @@
         // Trust no one by default
         "security.workspace.trust.enabled": false,
         // Killswitch for telemetry
-        "telemetry.telemetryLevel": "off",
-        // Use zsh by default. Using bash might be more safe and stable.
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.profiles.linux": { "zsh": { "path": "/usr/bin/zsh" } }
+        "telemetry.telemetryLevel": "off"
       },
       "extensions": [
         "juanblanco.solidity",
