@@ -9,8 +9,8 @@ FROM --platform=linux/amd64 ghcr.io/crytic/echidna/echidna:latest AS echidna
 # Grab at least python 3.12
 FROM python:3.12-slim AS python-base
 
-# Base debian build (latest).
-FROM mcr.microsoft.com/vscode/devcontainers/base:debian
+# Base ubuntu build (latest).
+FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 
 # Switch to root (the default might be root anyway)
 USER root
@@ -40,7 +40,7 @@ ENV PATH=${PATH}:${USR_LOCAL_BIN}:${LOCAL_BIN}:${PNPM_HOME}
 RUN python3 -m pip install --no-cache-dir --upgrade uv
 
 ENV SHELL=/usr/bin/bash
-SHELL ["/usr/bin/bash", "-ic"]
+SHELL ["/usr/bin/bash", "-c"]
 
 ## Install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
@@ -89,13 +89,14 @@ RUN chmod 755 ${HOME}/.local/bin/echidna
 # Back to home in case we want to do something later.
 WORKDIR ${HOME}
 
-USER root
 
 ## Add completions for anvil, cast, forge.
 RUN mkdir -p ${HOME}/.local/share/bash-completion/completions && \
     forge completions bash > ${HOME}/.local/share/bash-completion/completions/forge && \
     cast completions bash > ${HOME}/.local/share/bash-completion/completions/cast && \
     anvil completions bash > ${HOME}/.local/share/bash-completion/completions/anvil
+
+USER root
 
 ## Clean
 RUN apt-get autoremove -y && apt-get clean -y
