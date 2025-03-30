@@ -36,7 +36,6 @@
       "extensions": [
         "juanblanco.solidity",
         "trailofbits.weaudit",
-        "trailofbits.contract-explorer",
         "runtimeverification.simbolik"
       ]
     }
