@@ -37,7 +37,6 @@
         "juanblanco.solidity",
         "trailofbits.weaudit",
         "trailofbits.contract-explorer",
-        "NomicFoundation.hardhat-solidity",
         "runtimeverification.simbolik"
       ]
     }
