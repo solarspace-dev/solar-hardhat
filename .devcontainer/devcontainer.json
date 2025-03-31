@@ -34,6 +34,7 @@
         "telemetry.telemetryLevel": "off"
       },
       "extensions": [
+        "solarspace.solarspace",
         "juanblanco.solidity",
         "trailofbits.weaudit",
         "runtimeverification.simbolik"
