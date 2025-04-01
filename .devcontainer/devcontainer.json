@@ -6,7 +6,7 @@
   // More info: https://containers.dev/guide/dockerfile
   // https://github.com/devcontainers/images/tree/main/src/base-alpine
   // "image": "mcr.microsoft.com/devcontainers/base:debian",
-  "image": "ghcr.io/code-solar/solar-blank:latest",
+  "image": "ghcr.io/solarspace-dev/solar-blank:latest",
   // "build": {
   //   "dockerfile": "./Dockerfile"
   // },
