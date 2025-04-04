@@ -42,9 +42,6 @@ RUN python3 -m pip install --no-cache-dir --upgrade uv
 ENV SHELL=/usr/bin/bash
 SHELL ["/usr/bin/bash", "-ic"]
 
-## Install rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
-
 USER root
 ## Install nvm, yarn, npm, pnpm
 RUN curl -o- https://raw.githubusercontent.com/devcontainers/features/main/src/node/install.sh | bash
