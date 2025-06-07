@@ -40,9 +40,5 @@
         "runtimeverification.simbolik"
       ]
     }
-  },
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": ""
-  // Use 'postAttachCommand' to attach a command after the container is opened.
-  "postAttachCommand": "git remote remove upstream || true"
+  }
 }
